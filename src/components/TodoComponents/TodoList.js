@@ -1,24 +1,18 @@
-import React from 'react';
+import React from "react";
 import Todo from "./Todo";
-class App extends React.Component {
 
-
-  constructor() {
-    super();
-    this.state = {
-    };
-  }
-
-
-  render() {
+const TodoList = props => {
     return (
-      <div>
-          {this.props.todoData.map((item) => {
-              return <Todo task={item} setCompleted={this.props.setCompleted}/>
-          })}
-      </div>
-    );
-  }
+        <div>
+            {props.todo.map(listItem => (
+                <Todo
+                    key={listItem.id}
+                    listItem={listItem}
+                    toggleCompleted={props.toggleCompleted}
+                />
+            ))}
+        </div>
+    )
 }
 
-export default App;
+export default TodoList;

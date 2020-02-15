@@ -1,22 +1,21 @@
-.form-list {
-    margin: 0 auto;
+.todo-list {
     display: flex;
-    justify-content: center;
-    background-color: slategrey;
-    border: 1px solid black;
-}
+    flex-flow: row wrap;
+    justify-content: space-between;
+    width: 100%;
+    margin: 0 auto;
+  }
 
-.form-list button {
-    background-color: white;
-    border: 1px solid black;
-}
+.listItem {
+    background-color: #e64944;
+    width: 45%;
+    text-align: left;
+    margin: 4px 0;
+    padding-left: 8px;
+    cursor: pointer;
+  }
 
-.button-a:hover {
-    background-color: darkgreen;
-    color: white;
-}
-
-.button-b:hover {
-    background: red;
-    color: white;
-}
+.listItem.completed {
+    background-color: #d17d7c;
+    text-decoration: line-through;
+  }

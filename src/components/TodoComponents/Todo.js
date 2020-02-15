@@ -1,29 +1,20 @@
-import React from 'react';
+import React from "react";
 
-class App extends React.Component {
- 
-
-  constructor() {
-    super();
-  }
-
-  completedStyle(){
-    if(this.props.task.completed){
-        return 'finished'
+const Todo = props => {
+    let verboseClassName = "listItem";
+    if (props.listItem.completed) {
+        verboseClassName = verboseClassName + " completed";
     }
 
-    return "is my new task";
-  }
+    const handleClick = () => {
+        props.toggleCompleted(props.listItem.id)
+    };
 
-  render() {
-
-    let taskName = this.props.task.task + " - " + this.completedStyle()
     return (
-      <div onDoubleClick={() => {console.log("onDoubleClick working"); this.props.setCompleted(this.props.task)}}  >
-          {taskName}
-      </div>
-    );
-  }
+        <div onClick={handleClick} className={verboseClassName}>
+            <p>{props.listItem.task}</p>
+        </div>
+    )
 }
 
-export default App;
+export default Todo;

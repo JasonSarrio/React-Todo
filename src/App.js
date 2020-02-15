@@ -1,72 +1,71 @@
 import React from 'react';
-import TodoForm from "./components/TodoComponents/TodoForm"
-import TodoList from "./components/TodoComponents/TodoList"
-
+import TodoForm from "./components/TodoComponents/TodoForm";
+import TodoList from "./components/TodoComponents/TodoList";
+import "./components/TodoComponents/Todo.css";
 class App extends React.Component {
-  
+  // you will need a place to store your state in this component.
+  // design `App` to be the parent component of your application.
+  // this component is going to take care of state, and any change handlers you need to work with your state
 
   constructor() {
     super();
     this.state = {
-      todoData:
-        [],
-      idCounter: 0
+      todo: [{
+        task: "",
+        id: Date.now(),
+        completed: false
+      }]
     };
-
-    this.newTodo = this.newTodo.bind(this);
-    this.clearCompleted = this.clearCompleted.bind(this);
-    this.setCompleted = this.setCompleted.bind(this);
   }
 
-  newTodo(newTodoData) {
-      //set state to a new array containing the old list data, plus our new todo (concat doesn't mutate original, and returns the new array. works nicely for this)
-    
-    this.setState({todoData: this.state.todoData.concat({
-      task: newTodoData,
-      id: this.state.idCounter,
-      completed: false
-    })});
-    this.setState({ idCounter: this.state.idCounter + 1 })
-    console.log(this.state);
-  }
+  addItem = listItem => {
+    console.log("add item: ", listItem);
 
-  clearCompleted() {
-    this.setState({todoData: this.state.todoData.filter(item => {return !item.completed} )});
-  }
-
-  setCompleted(task) {
-
-    console.log("taskName", task);
-
-    let indexToChange;
-
-    this.state.todoData.forEach((item, index) => {
-      console.log("looping", index);
-      if(item.id === task.id){
-        indexToChange = index;
-      }
+    this.setState({
+      todo: [
+        ...this.state.todo,
+        {
+          task: listItem,
+          id: Date.now(),
+          completed: true
+        }
+      ]
     });
-
-    console.log("indexToChange", indexToChange);
-
-    let newTodoData = this.state.todoData.slice();
-
-    console.log("this.state.todoData undefined? ", this.state.todoData)
-    console.log("newTodoData undefiuned? ", newTodoData);
-
-    newTodoData[indexToChange].completed = true;
-
-    this.setState({todoData: newTodoData});
-
+    
+  }
+  
+  toggleCompleted = listItemId => {
+    this.setState( {
+      todo: this.state.todo.map(listItem => {
+        if (listItem.id === listItemId) {
+          return {
+            ...listItem,
+            completed: !listItem.completed
+          };
+        }
+        return listItem
+      })
+    });
   }
 
-  return (
-    <div className="App">
-      <h1> Jason's Todo List <h1/>
-      <TodoForm newTodo={newTodo} clearCompleted={clearCompleted}/>
-      <TodoList todoData={state} setCompleted={setCompleted}/>
-    </div>
-  );
+  clearCompleted = () => {
+    console.log("clearCompleted");
+    this.setState({
+      todo: this.state.todo.filter(listItem => {
+        return !listItem.completed;
+      })
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <h2>Welcome to Jason's Todo App!</h2>
+        <TodoForm addItem={this.addItem} clearCompleted={this.clearCompleted} />
+        <TodoList todo={this.state.todo} toggleCompleted={this.toggleCompleted} />
+      </div>
+    );
+  }
 }
 
 export default App;
