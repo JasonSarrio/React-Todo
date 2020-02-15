@@ -60,14 +60,13 @@ class App extends React.Component {
 
   }
 
-  render() {
-    return (
-      <div>{}
-        <TodoForm newTodo={this.newTodo} clearCompleted={this.clearCompleted}/>
-        <TodoList todoData={this.state.todoData} setCompleted={this.setCompleted}/>
-      </div>
-    );
-  }
+  return (
+    <div className="App">
+      <h1> Jason's Todo List <h1/>
+      <TodoForm newTodo={newTodo} clearCompleted={clearCompleted}/>
+      <TodoList todoData={state} setCompleted={setCompleted}/>
+    </div>
+  );
 }
 
 export default App;
