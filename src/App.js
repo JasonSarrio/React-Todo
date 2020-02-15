@@ -19,6 +19,7 @@ class App extends React.Component {
   }
 
   newTodo(newTodoData) {
+      //set state to a new array containing the old list data, plus our new todo (concat doesn't mutate original, and returns the new array. works nicely for this)
     
     this.setState({todoData: this.state.todoData.concat({
       task: newTodoData,
@@ -61,9 +62,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>{ 
-      
-      }
+      <div>{}
         <TodoForm newTodo={this.newTodo} clearCompleted={this.clearCompleted}/>
         <TodoList todoData={this.state.todoData} setCompleted={this.setCompleted}/>
       </div>
